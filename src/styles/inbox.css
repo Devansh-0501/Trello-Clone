@@ -1,0 +1,32 @@
+.inbox{
+    background-color: rgb(34, 41, 98);
+    height: 90vh;
+    width: 20%;
+    border-radius: 15px;
+}
+.inbox.collapsed{
+    width: 9%;
+}
+.u-inbox{
+   
+    height: 10vh;
+    background-color: rgb(23, 23, 62);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 15px;
+}
+.u-inbox h2{
+     color: white;
+     font-size: 1.2rem;
+}
+.u-inbox button{
+    font-size: 1rem;
+    padding: .4rem;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(14, 14, 48);
+    color: white;
+
+}
