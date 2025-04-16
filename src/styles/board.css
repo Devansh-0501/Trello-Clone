@@ -3,10 +3,12 @@
     color: white;
     width: 80%;
     border-radius: 15px;
+    
 }
 
 .u-board{
    
+    width: 100%;    
     border-radius: 15px;
     height: 10vh;
     background-color: rgb(64, 28, 83);
@@ -16,5 +18,76 @@
     padding: 0 1rem;
 }
 .main-board{
+   
     padding: .5rem;
+    display: flex;
+    overflow: auto;
+    height:80vh;
+    gap: 10px;
+}
+
+
+
+
+
+.add-list{
+   
+    padding: .3rem;
+    width: 16rem;
+    
+   
+}   
+.list-form{
+    background-color: black;
+    border-radius: 10px;
+    padding: .8rem;
+    width: 16rem;
+}
+
+
+
+.list-form button{
+    background-color: rgb(19, 62, 182);
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    padding: .3rem;
+    font-weight: 500;
+   
+}
+
+.add-list>input{
+    
+    width: 16rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    padding: .8rem;
+   
+    opacity: .6;
+    
+}
+.add-list>input::placeholder{
+  font-family: 'Times New Roman', Times, serif;
+  
+}
+.add-list>input:hover{
+    cursor: pointer;
+    opacity: .4;
+}
+
+.show-list{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 10vh;
+    
+    
+   
+}
+.single-list{
+    background-color: rgb(146, 37, 93);
+    width: 16rem;
+    color: black;
+    
 }
