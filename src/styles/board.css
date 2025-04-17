@@ -17,6 +17,16 @@
     align-items: center;
     padding: 0 1rem;
 }
+
+.u-board button{
+    background-color:red;
+    padding: .4rem;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    
+}
 .main-board{
    
     padding: .5rem;
