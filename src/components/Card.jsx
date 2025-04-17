@@ -46,7 +46,7 @@ const Card = (props) => {
         onChange={(e) => {
           setText(e.target.value);
         }}
-        placeholder="Add card"
+        placeholder="+ Add card"
         onClick={() => {
           setForm(!form);
         }}

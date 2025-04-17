@@ -1,9 +1,10 @@
 .board{
-    background-color: rgb(88, 39, 94);
+    
     color: white;
     width: 80%;
     border-radius: 15px;
-    
+   
+background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 143, 255) );    
 }
 
 .u-board{
@@ -66,7 +67,7 @@
    
 }
 
-.add-list>input{
+.add-list input{
     
     width: 16rem;
     font-size: 1rem;
@@ -77,8 +78,12 @@
     opacity: .6;
     
 }
-.add-list>input::placeholder{
-  font-family: 'Times New Roman', Times, serif;
+.add-list input::placeholder{
+    font-size: 1rem;
+    font-weight: 500;
+    
+ 
+  color: rgb(0, 0, 0);
   
 }
 .add-list>input:hover{
@@ -91,26 +96,27 @@
     flex-wrap: nowrap;
     gap: 10px;
     height: max-content;
+   
     
     
     
    
 }
 .heading{
-    
-    background-color: rgb(47, 4, 57);
+   
     text-align: center;
     font-size: 1.6rem;
     padding: .3rem 0;
     border-radius: 10px;
-    color: rgb(204, 110, 245);
+    color: rgb(203, 193, 217);
     
 }
 .single-list{
     font-size: 1rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid rgba(238, 130, 238, 0.401);
+    background-color: rgb(73, 33, 110);
+    /* border: 2px solid rgba(238, 130, 238, 0.401); */
     border-radius: 16px;
    
     /* width: 16rem; */

@@ -1,4 +1,11 @@
 nav{
-    background-color: rgb(95, 170, 193);
-    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(51, 131, 158);
+    height: 5.8vh;
+    border-radius: 16px;
+   
+    font-size: 2rem;
+    color: white;
 }

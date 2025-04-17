@@ -4,7 +4,7 @@ import "../styles/navbar.css"
 const Navbar = () => {
   return (
     <nav>
-      Navbar
+      TRELLO-CLONE
     </nav>
   )
 }

@@ -1,8 +1,9 @@
 .inbox{
-    background-color: rgb(34, 41, 98);
+    
     height: 90vh;
     width: 20%;
     border-radius: 15px;
+    background-image: linear-gradient(rgb(34, 41, 98),rgb(123, 138, 224));
 }
 .inbox.collapsed{
     width: 9%;

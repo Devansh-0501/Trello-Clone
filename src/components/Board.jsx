@@ -66,7 +66,7 @@ const Board = () => {
             onChange={(e) => {
               setListValue(e.target.value);
             }}
-            placeholder="Add List"
+            placeholder="+ Add List "
           />
 
           {show && (
