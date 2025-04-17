@@ -5,20 +5,23 @@ const Card = (props) => {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(false);
   const [text, setText] = useState("");
+  let trelloCards=JSON.stringify("Card"+props.index);
 
 
  useEffect(() => {
-    const savedCard = localStorage.getItem('trelloCards');
+  
+
+    const savedCard = localStorage.getItem(trelloCards);
     if (savedCard) {
       setItems(JSON.parse(savedCard));
     }
    
   }, []);
-  
+
 
 
 const saveCardHandler =()=>{
-    localStorage.setItem("trelloCards",JSON.stringify(items))
+    localStorage.setItem(trelloCards,JSON.stringify(items))
 
   }
 

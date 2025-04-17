@@ -6,6 +6,7 @@ const Board = () => {
   const [listValue, setListValue] = useState("");
   const [list, setList] = useState([]);
   const [show, setShow] = useState(false);
+  
 
   useEffect(() => {
     const savedItems = localStorage.getItem('trelloList');
@@ -58,9 +59,10 @@ const Board = () => {
             return (
               <div key={i} className="single-list">
                 <div className="heading">
+
                   {l}
                 </div>
-                <Card />
+                <Card index={i}/>
                 
               </div>
             );
