@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, {  useEffect,useState } from "react";
 import "../styles/card.css";
 
-const Card = () => {
+const Card = (props) => {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(false);
   const [text, setText] = useState("");
+
+
+ useEffect(() => {
+    const savedCard = localStorage.getItem('trelloCards');
+    if (savedCard) {
+      setItems(JSON.parse(savedCard));
+    }
+   
+  }, []);
+  
+
+
+const saveCardHandler =()=>{
+    localStorage.setItem("trelloCards",JSON.stringify(items))
+
+  }
 
   const onchangeHandler = (e) => {
     setText(e.target.value);
@@ -37,6 +53,7 @@ const Card = () => {
             </li>);
           })}
         </ul>
+        <button onClick={saveCardHandler}>save</button>
       </div>
     </div>
   );
