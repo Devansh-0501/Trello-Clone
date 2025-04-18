@@ -1,7 +1,7 @@
 .board{
     
     color: white;
-    width: 80%;
+    width: 100%;
     border-radius: 15px;
    
 background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 143, 255) );    
@@ -9,14 +9,16 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
 
 .u-board{
    
-    width: 100%;    
-    border-radius: 15px;
-    height: 10vh;
+    width: 100%;  
+    border-top-left-radius: 15px;  
+    border-top-right-radius: 15px;  
+    /* border-radius: 15px; */
+    /* height: 10vh; */
     background-color: rgb(64, 28, 83);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
+    padding: 1rem;
 }
 
 .u-board button{

@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useRef,useState,useEffect } from "react";
 import "../styles/board.css";
 import Card from "./Card";
 
 const Board = () => {
+  const inputRef = useRef(null);
   const [listValue, setListValue] = useState("");
   const [list, setList] = useState([]);
   const [show, setShow] = useState(false);
@@ -15,6 +16,13 @@ const Board = () => {
     }
     
   }, []);
+
+  useEffect(() => {
+    if (show && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [show]);
+
   const clearAll=()=>{
     localStorage.clear();
     location.reload();
@@ -60,18 +68,22 @@ const Board = () => {
           <input
             type="text"
             value={listValue}
+            ref={inputRef}
             onClick={() => {
               setShow(!show);
             }}
             onChange={(e) => {
               setListValue(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") addList();
+            }}
             placeholder="+ Add List "
           />
 
           {show && (
             <div className="list-form">
-              <button onClick={addList}>Add List</button>
+              <button    onClick={addList}>Add List</button>
             </div>
           )}
         </div>

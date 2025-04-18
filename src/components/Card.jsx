@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef,useEffect, useState } from "react";
 import "../styles/card.css";
 
 const Card = (props) => {
+  const cardInputRef=useRef(null)
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(false);
   const [text, setText] = useState("");
@@ -13,6 +14,11 @@ const Card = (props) => {
       setItems(JSON.parse(savedCard));
     }
   }, []);
+  useEffect(() => {
+    if (form && cardInputRef.current) {
+      cardInputRef.current.focus();
+    }
+  }, [form]);
 
   const saveCard = () => {
     if (text.trim() === "") return;
@@ -43,6 +49,7 @@ const Card = (props) => {
       <input
         type="text"
         value={text}
+        ref={cardInputRef}
         onChange={(e) => {
           setText(e.target.value);
         }}
