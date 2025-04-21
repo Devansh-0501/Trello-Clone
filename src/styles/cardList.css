@@ -1,10 +1,9 @@
 .card{
+    
     padding: .5rem;
-    /* margin-top: .5rem; */
-    
-   
-    
 }
+
+
 .card>input{
     background-color: rgb(38, 36, 36);
     width: 100%;
@@ -17,9 +16,11 @@
     margin-top: .5rem;
 
 }
+
 .card>input::placeholder{
     color: rgba(239, 236, 236, 0.753);
 }
+
 .card>input:hover{
     cursor: pointer;
     opacity: .8;
@@ -33,6 +34,7 @@
     
 
 }
+
 .card-form button{
     background-color: rgb(19, 62, 182);
     font-size: 1rem;
@@ -41,16 +43,4 @@
     padding: .3rem;
     font-weight: 500;
    
-}
-
-.card-display li{
-    background-color: rgb(38, 36, 36);
-    width: 100%;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    padding: .8rem;
-    opacity: 1;
-    color: white;
-    margin-top: 4px;
 }

@@ -97,7 +97,7 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
     display: flex;
     flex-wrap: nowrap;
     gap: 10px;
-    height: max-content;
+    /* height: max-content; */
    
     
     
@@ -121,7 +121,8 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
     /* border: 2px solid rgba(238, 130, 238, 0.401); */
     border-radius: 16px;
    
-    /* width: 16rem; */
+    height: max-content;    
+    width: 16rem;
     color: black;
     padding: .5rem;
     

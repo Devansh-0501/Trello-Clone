@@ -1,0 +1,19 @@
+.single-card {
+    background-color: #401648;
+   
+    border-radius: 8px;
+   
+    font-weight: 500;
+    color: rgb(215, 190, 235);
+    padding: 10px;
+    margin-bottom: 12px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.single-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
