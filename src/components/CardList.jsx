@@ -1,81 +1,58 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import React, { useRef, useEffect, useState } from "react";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import SingleCard from "./SingleCard";
-import "../styles/cardList.css"
-import { DndContext,closestCorners } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
+import "../styles/cardList.css";
 
-
-const CardList = ({ index }) => {
-  const [items, setItems] = useState([]);
+const CardList = ({ listId, cards, setCards, allCards }) => {
   const [text, setText] = useState("");
   const [form, setForm] = useState(false);
   const inputRef = useRef(null);
-
-  let trelloCards = JSON.stringify("Card" + index);
-
-  useEffect(() => {
-  
-    
-    const saved = localStorage.getItem(trelloCards);
-    if (saved) setItems(JSON.parse(saved));
-  }, []);
 
   useEffect(() => {
     if (form && inputRef.current) inputRef.current.focus();
   }, [form]);
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-  
-    const oldIndex = items.indexOf(active.id);
-    const newIndex = items.indexOf(over.id);
-  
-    const newItems = arrayMove(items, oldIndex, newIndex);
-    setItems(newItems);
-    localStorage.setItem(trelloCards, JSON.stringify(newItems));
-  };
-
-
-
   const saveCard = () => {
     if (text.trim() === "") return;
 
-    const updatedItems = [...items, text.trim()];
-    setItems(updatedItems);
+    const newCard = {
+      id: crypto.randomUUID(),
+      content: text.trim(),
+      listId: listId,
+    };
 
-    localStorage.setItem(trelloCards, JSON.stringify(updatedItems));
+    const updatedCards = [...allCards, newCard];
+    setCards(updatedCards);
+    localStorage.setItem("trelloCards", JSON.stringify(updatedCards));
 
-    
     setText("");
+    setForm(false);
   };
 
   return (
-    
     <div className="card">
-        <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map((item) => (
-          <SingleCard key={item} id={item} />
+      <SortableContext items={cards.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+        {cards.map((item) => (
+          <SingleCard key={item.id} id={item.id} content={item.content} />
         ))}
       </SortableContext>
-       
 
       <input
         type="text"
         ref={inputRef}
         value={text}
         placeholder="+ Add card"
-        onClick={() => setForm(!form)}
+        onClick={() => setForm(true)}
         onChange={(e) => setText(e.target.value)}
       />
       {form && (
         <div className="card-form">
           <button onClick={saveCard}>Add Card</button>
         </div>
-      )} </DndContext>
+      )}
     </div>
   );
 };
