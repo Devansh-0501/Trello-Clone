@@ -1,12 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../styles/board.css";
 import CardList from "./CardList";
-import { DndContext, useSensor,
+import {
+  DndContext,
+  useSensor,
   useSensors,
   TouchSensor,
   MouseSensor,
-  closestCenter, } from "@dnd-kit/core";
+  closestCenter,
+  DragOverlay,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
+import SingleCard from "./SingleCard";
 
 const Board = () => {
   const inputRef = useRef(null);
@@ -14,14 +19,13 @@ const Board = () => {
   const [lists, setLists] = useState([]);
   const [cards, setCards] = useState([]);
   const [show, setShow] = useState(false);
-
+  const [activeCardId, setActiveCardId] = useState(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor)
   );
 
-  // Load from localStorage
   useEffect(() => {
     const savedLists = localStorage.getItem("trelloLists");
     const savedCards = localStorage.getItem("trelloCards");
@@ -55,6 +59,8 @@ const Board = () => {
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
+    setActiveCardId(null);
+
     if (!over || active.id === over.id) return;
 
     const activeCard = cards.find((c) => c.id === active.id);
@@ -66,13 +72,11 @@ const Board = () => {
     const overListId = overCard.listId;
 
     if (activeListId === overListId) {
-      // Same list: reorder
       const filtered = cards.filter((c) => c.listId === activeListId);
       const oldIndex = filtered.findIndex((c) => c.id === active.id);
       const newIndex = filtered.findIndex((c) => c.id === over.id);
 
       const reordered = arrayMove(filtered, oldIndex, newIndex);
-
       const newCards = [
         ...cards.filter((c) => c.listId !== activeListId),
         ...reordered,
@@ -80,10 +84,17 @@ const Board = () => {
       setCards(newCards);
       localStorage.setItem("trelloCards", JSON.stringify(newCards));
     } else {
-      // Move to different list
-      const newCards = cards.map((c) =>
-        c.id === active.id ? { ...c, listId: overListId } : c
-      );
+      const overIndex = cards
+        .filter((c) => c.listId === overListId)
+        .findIndex((c) => c.id === over.id);
+
+      const updatedCards = cards.filter((c) => c.id !== active.id);
+      const newCard = { ...activeCard, listId: overListId };
+
+      const before = updatedCards.slice(0, overIndex);
+      const after = updatedCards.slice(overIndex);
+
+      const newCards = [...before, newCard, ...after];
       setCards(newCards);
       localStorage.setItem("trelloCards", JSON.stringify(newCards));
     }
@@ -97,38 +108,51 @@ const Board = () => {
       </div>
 
       <div className="main-board">
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={(event) => setActiveCardId(event.active.id)}
+          onDragEnd={handleDragEnd}
+        >
           <div className="show-list">
             {lists.map((list) => (
               <div key={list.id} className="single-list">
                 <div className="heading">{list.name}</div>
                 <CardList
                   listId={list.id}
-                  cards={cards.filter((card) => card.listId === list.id)}
                   setCards={setCards}
                   allCards={cards}
                 />
               </div>
             ))}
           </div>
-        
 
-        <div className="add-list">
-          <input
-            type="text"
-            value={listValue}
-            ref={inputRef}
-            onClick={() => setShow(!show)}
-            onChange={(e) => setListValue(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addList()}
-            placeholder="+ Add List "
-          />
-          {show && (
-            <div className="list-form">
-              <button onClick={addList}>Add List</button>
-            </div>
-          )}
-        </div></DndContext>
+          <div className="add-list">
+            <input
+              type="text"
+              value={listValue}
+              ref={inputRef}
+              onClick={() => setShow(!show)}
+              onChange={(e) => setListValue(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addList()}
+              placeholder="+ Add List "
+            />
+            {show && (
+              <div className="list-form">
+                <button onClick={addList}>Add List</button>
+              </div>
+            )}
+          </div>
+
+          <DragOverlay>
+            {activeCardId ? (
+              <SingleCard
+                id={activeCardId}
+                content={cards.find((card) => card.id === activeCardId)?.content}
+              />
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       </div>
     </div>
   );

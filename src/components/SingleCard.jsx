@@ -15,12 +15,17 @@ const SingleCard = ({ id, content }) => {
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
-    transition:"smooth",
-    transitionDuration: "0.2s",
-    
-    opacity: isDragging ? 0.9 : 1,
+    transition: transition || "transform 0.2s ease",
+    opacity: isDragging ? 0.5 : 1,
+    boxShadow: isDragging
+      ? "0 8px 12px rgba(0, 0, 0, 0.15)"
+      : "0 2px 4px rgba(0, 0, 0, 0.08)",
     cursor: "grab",
+   
+    borderRadius: "6px",
+    padding: "0.75rem",
+    marginBottom: "0.5rem",
+    userSelect: "none",
   };
 
   return (

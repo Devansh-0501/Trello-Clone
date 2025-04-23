@@ -6,7 +6,7 @@ import {
 import SingleCard from "./SingleCard";
 import "../styles/cardList.css";
 
-const CardList = ({ listId, cards, setCards, allCards }) => {
+const CardList = ({ listId, setCards, allCards }) => {
   const [text, setText] = useState("");
   const [form, setForm] = useState(false);
   const inputRef = useRef(null);
@@ -32,10 +32,15 @@ const CardList = ({ listId, cards, setCards, allCards }) => {
     setForm(false);
   };
 
+  const filteredCards = allCards.filter((card) => card.listId === listId);
+
   return (
     <div className="card">
-      <SortableContext items={cards.map((c) => c.id)} strategy={verticalListSortingStrategy}>
-        {cards.map((item) => (
+      <SortableContext
+        items={filteredCards.map((c) => c.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        {filteredCards.map((item) => (
           <SingleCard key={item.id} id={item.id} content={item.content} />
         ))}
       </SortableContext>
