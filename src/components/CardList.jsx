@@ -1,15 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SingleCard from "./SingleCard";
+import { useDroppable } from "@dnd-kit/core";  // Add this
 import "../styles/cardList.css";
 
 const CardList = ({ listId, setCards, allCards }) => {
   const [text, setText] = useState("");
   const [form, setForm] = useState(false);
   const inputRef = useRef(null);
+
+  const filteredCards = allCards.filter((card) => card.listId === listId);
+
+  // Make the entire card list droppable
+  const { setNodeRef } = useDroppable({
+    id: listId,  // Use the listId itself as the droppable id
+  });
 
   useEffect(() => {
     if (form && inputRef.current) inputRef.current.focus();
@@ -32,17 +37,25 @@ const CardList = ({ listId, setCards, allCards }) => {
     setForm(false);
   };
 
-  const filteredCards = allCards.filter((card) => card.listId === listId);
-
   return (
-    <div className="card">
+    <div className="card" ref={setNodeRef}>
       <SortableContext
         items={filteredCards.map((c) => c.id)}
         strategy={verticalListSortingStrategy}
       >
-        {filteredCards.map((item) => (
-          <SingleCard key={item.id} id={item.id} content={item.content} />
-        ))}
+        {filteredCards.length === 0 ? (
+          <div className="empty-placeholder">Drop Here</div> // simple placeholder if no cards
+        ) : (
+          filteredCards.map((item) => (
+            <SingleCard
+              key={item.id}
+              id={item.id}
+              content={item.content}
+              setCards={setCards}
+              allCards={allCards}
+            />
+          ))
+        )}
       </SortableContext>
 
       <input
@@ -51,6 +64,7 @@ const CardList = ({ listId, setCards, allCards }) => {
         value={text}
         placeholder="+ Add card"
         onClick={() => setForm(true)}
+        onKeyDown={(e) => e.key === "Enter" && saveCard()}
         onChange={(e) => setText(e.target.value)}
       />
       {form && (

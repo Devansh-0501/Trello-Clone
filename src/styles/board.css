@@ -106,12 +106,40 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
 }
 .heading{
    
+    display: flex;    
+    justify-content: space-between;
     text-align: center;
     font-size: 1.6rem;
-    padding: .3rem 0;
+    padding: .8rem;
     border-radius: 10px;
     color: rgb(203, 193, 217);
     
+}
+.heading>input{
+    
+  border: none;
+  background-color: rgb(64, 28, 83);
+  color: rgb(203, 193, 217);
+    font-size: 14px;
+    padding: .3rem;
+    
+}
+.heading button{
+    background-color: rgb(19, 62, 182);
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    padding: .3rem;
+    font-weight: 500;
+    color: white;
+    
+}
+.edit-buttons{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+   
 }
 .single-list{
     font-size: 1rem;
@@ -126,4 +154,9 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
     color: black;
     padding: .5rem;
     
+}
+
+.editDelete-list{
+    display: flex;
+    gap: 5px;
 }
