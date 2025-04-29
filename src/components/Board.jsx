@@ -60,10 +60,10 @@ const Board = () => {
     setEditedListName(list.name);
   };
 
-  const cancelEditList = () => {
-    setEditingListId(null);
-    setEditedListName("");
-  };
+  // const cancelEditList = () => {
+  //   setEditingListId(null);
+  //   setEditedListName("");
+  // };
 
   const saveListName = (id) => {
     if (editedListName.trim() === "") return;
@@ -92,10 +92,12 @@ const Board = () => {
     if (!over || active.id === over.id) return;
 
     const activeCard = cards.find((c) => c.id === active.id);
+    const overCard = cards.find((c) => c.id === over.id);
+
 
     if (!activeCard) return;
 
-    const overCard = cards.find((c) => c.id === over.id);
+   
 
     if (overCard) {
       // Dropped over another card
@@ -165,21 +167,21 @@ const Board = () => {
                   {editingListId === list.id ? (
                     <>
                       <input
-                        style={{ width: "100%" }}
+                        
                         type="text"
                         value={editedListName}
                         onChange={(e) => setEditedListName(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") saveListName(list.id);
-                          if (e.key === "Escape") cancelEditList();
+                          
                         }}
                         autoFocus
                       />
                       <div className="edit-buttons" >
-                        <button onClick={() => saveListName(list.id)}>
+                        <button style={{fontSize:"18px"}} onClick={() => saveListName(list.id)}>
                           ✅ 
                         </button>
-                        <button onClick={cancelEditList}>❌ </button>
+                       
                       </div>
                     </>
                   ) : (
@@ -191,10 +193,7 @@ const Board = () => {
                             ✏️ 
                           </button>
                           <button
-                            style={{
-                              backgroundColor: "maroon",
-                              color: "white",
-                            }}
+                            
                             onClick={() => deleteList(list.id)}
                           >
                             🗑️

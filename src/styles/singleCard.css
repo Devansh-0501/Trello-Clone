@@ -14,14 +14,30 @@
     font-size: 1.1rem;
 }
 
-
+.drag-handle{
+    background-color: #070707;
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: grab;
+}
+.single-card input{
+    border: none;
+  background-color: rgb(47, 13, 59);
+  color: rgb(203, 193, 217);
+    font-size: 14px;
+    padding: .4rem;
+    margin: 0 2px;
+    width: 100%;
+}
 .buttons button{
     background-color: rgb(47, 37, 141);
     color: white;
     border: none;
     border-radius: 4px;
     padding: 5px 5px;
-    cursor: pointer
+    cursor: pointer;
+    font-size: 12px;
 }
 .buttons{
     display: flex;

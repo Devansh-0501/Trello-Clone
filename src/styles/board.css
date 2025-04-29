@@ -106,7 +106,8 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
 }
 .heading{
    
-    display: flex;    
+background-color: rgb(6, 44, 44);    
+display: flex;    
     justify-content: space-between;
     text-align: center;
     font-size: 1.6rem;
@@ -115,32 +116,37 @@ background-image: linear-gradient(to bottom right, rgb(189, 55, 206),rgb(255, 14
     color: rgb(203, 193, 217);
     
 }
-.heading>input{
+.heading input{
     
   border: none;
-  background-color: rgb(64, 28, 83);
+  background-color: rgb(13, 59, 22);
   color: rgb(203, 193, 217);
     font-size: 14px;
     padding: .3rem;
+    width: 100%;
     
 }
 .heading button{
-    background-color: rgb(19, 62, 182);
-    font-size: 14px;
+    background-color: rgba(0, 3, 9, 0.395);
+    font-size: 12px;
     border: none;
     border-radius: 10px;
     padding: .3rem;
     font-weight: 500;
     color: white;
+    /* margin-left: 3px; */
     
 }
-.edit-buttons{
+ .edit-buttons{
     display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
    
-}
+    
+    align-items: center;
+    margin-left: 3px;
+   
+} 
+
+
 .single-list{
     font-size: 1rem;
     display: flex;

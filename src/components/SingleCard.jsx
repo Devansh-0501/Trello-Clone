@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import "../styles/singleCard.css";
@@ -14,7 +14,14 @@ const SingleCard = ({ id, content, setCards, allCards }) => {
   } = useSortable({ id });
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(content);
+  const [editedContent, setEditedContent] = useState(content);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -23,87 +30,61 @@ const SingleCard = ({ id, content, setCards, allCards }) => {
     boxShadow: isDragging
       ? "0 8px 12px rgba(0, 0, 0, 0.15)"
       : "0 2px 4px rgba(0, 0, 0, 0.08)",
-    cursor: "grab",
     borderRadius: "6px",
     padding: "0.75rem",
     marginBottom: "0.5rem",
-    // backgroundColor: "white",
+    userSelect: "none",
+    
   };
 
-  // Delete card function
-  const deleteCardHandler = () => {
-    const updatedCards = allCards.filter((card) => card.id !== id);
-    setCards(updatedCards);
-    localStorage.setItem("trelloCards", JSON.stringify(updatedCards));
-  };
-
-  // Start editing
-  const editCardHandler = () => {
-    setIsEditing(true);
-  };
-
-  // Save edited card
-  const saveEditHandler = () => {
-    if (editText.trim() === "") return; // prevent empty save
-    const updatedCards = allCards.map((card) =>
-      card.id === id ? { ...card, content: editText.trim() } : card
+  const saveEdit = () => {
+    if (editedContent.trim() === "") return;
+    const updatedCards = allCards.map((c) =>
+      c.id === id ? { ...c, content: editedContent.trim() } : c
     );
     setCards(updatedCards);
     localStorage.setItem("trelloCards", JSON.stringify(updatedCards));
     setIsEditing(false);
   };
 
-  // Cancel editing
-  const cancelEditHandler = () => {
-    setIsEditing(false);
-    setEditText(content); // reset to original content
+  const deleteCardHandler = () => {
+    const updatedCards = allCards.filter((c) => c.id !== id);
+    setCards(updatedCards);
+    localStorage.setItem("trelloCards", JSON.stringify(updatedCards));
   };
 
+ 
+
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="single-card"
-      {...attributes}
-      {...listeners}
-    >
-      {!isEditing ? (
+    <div ref={setNodeRef} style={style} className="single-card" {...attributes}>
+      {/* Drag handle */}
+      <div className="drag-handle" {...listeners}>
+      ⠿
+      </div>
+
+      {isEditing ? (
         <>
-          <div>{content}</div>
+          <input
+            ref={inputRef}
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") saveEdit();
+              
+            }}
+          />
           <div className="buttons">
-            <button onClick={editCardHandler}>✏️ </button>
-            <button
-              style={{ backgroundColor: "maroon", color: "white" }}
-              onClick={deleteCardHandler}
-            >
-              🗑️ 
-            </button>
+            <button onClick={saveEdit}>✅</button>
+            
           </div>
         </>
       ) : (
         <>
-          <input
-            type="text"
-            value={editText}
-            onChange={(e) => setEditText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") saveEditHandler();
-              if (e.key === "Escape") cancelEditHandler();
-            }}
-            autoFocus
-          />
+          <div>{content}</div>
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "green", color: "white" }}
-              onClick={saveEditHandler}
-            >
-              ✅ Save
-            </button>
-            <button
-              style={{ backgroundColor: "gray", color: "white" }}
-              onClick={cancelEditHandler}
-            >
-              ❌ Cancel
+            <button onClick={() => setIsEditing(true)}>✏️</button>
+            <button style={{ backgroundColor: "maroon" }} onClick={deleteCardHandler}>
+              🗑️
             </button>
           </div>
         </>
